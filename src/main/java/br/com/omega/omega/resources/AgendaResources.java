@@ -5,8 +5,11 @@ import br.com.omega.omega.model.Pessoa;
 import br.com.omega.omega.service.AgendaService;
 import br.com.omega.omega.service.OmegaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/agenda")
@@ -40,5 +43,8 @@ public class AgendaResources {
         }
         return ResponseEntity.ok("Paciente não encontrado");
     }
-
+    @GetMapping("/list-agendamentos")
+    public ResponseEntity<List<?>> getAgendammentos(){
+        return new ResponseEntity<>(this.agendaService.listAgendametos(), HttpStatus.OK);
+    }
 }
