@@ -1,7 +1,7 @@
 package br.com.omega.omega.resources;
 
 import br.com.omega.omega.model.Pessoa;
-import br.com.omega.omega.service.OmegaService;
+import br.com.omega.omega.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/omega")
-public class OmegaResource {
+@RequestMapping("/pessoa")
+public class PessoaResource {
 
     @Autowired
-    private OmegaService omegaService;
+    private PessoaService pessoaService;
 
     @GetMapping("/teste")
     public ResponseEntity<String> getOmegas(){
@@ -27,19 +27,19 @@ public class OmegaResource {
 
     @PostMapping("/save")//create
     public ResponseEntity<Pessoa> savePessoa(@RequestBody Pessoa pessoa){
-        return ResponseEntity.ok(this.omegaService.savePessoa(pessoa));
+        return ResponseEntity.ok(this.pessoaService.savePessoa(pessoa));
     }
     @GetMapping("/list")//read
     public ResponseEntity<List<?>> getPessoaOmega(){
-        return new ResponseEntity<>(this.omegaService.listPessoa(), HttpStatus.OK);
+        return new ResponseEntity<>(this.pessoaService.listPessoa(), HttpStatus.OK);
 
     }
 
     @DeleteMapping("/delete/{idPessoa}")//delete
     public ResponseEntity<?> deletePessoaOmega(@PathVariable("idPessoa") Long id){
-        Pessoa pessoa = this.omegaService.findPessoaById(id);
+        Pessoa pessoa = this.pessoaService.findPessoaById(id);
         if (pessoa != null){
-            this.omegaService.deletePessoaOmega(pessoa);
+            this.pessoaService.deletePessoaOmega(pessoa);
             return ResponseEntity.ok("Deletado Com Sucesso");
         }
         return ResponseEntity.noContent().build();
@@ -47,11 +47,11 @@ public class OmegaResource {
 
     @PutMapping("/update/{idPessoa}")//update
     public ResponseEntity<?> updatePessoaOmega(@RequestBody Pessoa pessoaAtual, @PathVariable("idPessoa") Long id){
-        Pessoa pessoa = this.omegaService.findPessoaById(id);
+        Pessoa pessoa = this.pessoaService.findPessoaById(id);
         if (pessoa != null){
             pessoa.setNome(pessoaAtual.getNome());
             pessoa.setCpf(pessoaAtual.getCpf());
-            this.omegaService.updatePessoaOmega(pessoa);
+            this.pessoaService.updatePessoaOmega(pessoa);
             return ResponseEntity.ok("Atualizado com Sucesso");
         }
         return ResponseEntity.noContent().build();

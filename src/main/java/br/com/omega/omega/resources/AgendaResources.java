@@ -3,7 +3,7 @@ package br.com.omega.omega.resources;
 import br.com.omega.omega.model.Agenda;
 import br.com.omega.omega.model.Pessoa;
 import br.com.omega.omega.service.AgendaService;
-import br.com.omega.omega.service.OmegaService;
+import br.com.omega.omega.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ public class AgendaResources {
     @Autowired
     private AgendaService agendaService;
     @Autowired
-    private OmegaService omegaService;
+    private PessoaService pessoaService;
 
     @GetMapping("/testeAgenda")
     public ResponseEntity<?> testeAgenda(){
@@ -33,10 +33,10 @@ public class AgendaResources {
     @PostMapping("/save")
     public ResponseEntity<?> saveAgenda(@RequestBody Agenda agenda){
         if (agenda.getPaciente() != null){
-            Pessoa pessoa = this.omegaService.findPessoaById(agenda.getPaciente().getId());
+            Pessoa pessoa = this.pessoaService.findPessoaById(agenda.getPaciente().getId());
             if(pessoa != null){
                 agenda.setPaciente(pessoa);
-                return ResponseEntity.ok(this.omegaService.saveAgendamento(agenda));
+                return ResponseEntity.ok(this.pessoaService.saveAgendamento(agenda));
             }else{
                 return ResponseEntity.ok("Pessoa não encontrada");
             }
