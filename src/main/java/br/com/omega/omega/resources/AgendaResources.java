@@ -34,12 +34,12 @@ public class AgendaResources {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/save")
+    @PostMapping("/save")//create
     public ResponseEntity<?> saveAgenda(@RequestBody Agenda agenda){
-        if (agenda.getPaciente() != null || agenda.getPsicologo() != null){
+        if (agenda.getPaciente() != null && agenda.getPsicologo() != null){
             Pessoa pessoa = this.pessoaService.findPessoaById(agenda.getPaciente().getId());
             Profissional profissional = this.profissionalService.findProfissionalById(agenda.getPsicologo().getId());
-            if(pessoa != null || profissional != null){
+            if(pessoa != null && profissional != null){
                 agenda.setPaciente(pessoa);
                 agenda.setPsicologo(profissional);
                 return ResponseEntity.ok(this.pessoaService.saveAgendamento(agenda));
@@ -49,8 +49,34 @@ public class AgendaResources {
         }
         return ResponseEntity.ok("Paciente não encontrado");
     }
-    @GetMapping("/list-agendamentos")
+
+    @GetMapping("/list-agendamentos")//read
     public ResponseEntity<List<?>> getAgendammentos(){
         return new ResponseEntity<>(this.agendaService.listAgendametos(), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete-agendamentos/{idAgendamento}")//delete
+    public ResponseEntity<?> deleteAgendamentos(@PathVariable("idAgendamento") Long id){
+        Agenda agenda = this.agendaService.findAgendaById(id);
+        if (agenda != null){
+            this.agendaService.removerAgendamento(agenda);
+            return ResponseEntity.ok("Deletado com Sucesso");
+        }
+        return ResponseEntity.ok("Agendamento não Encontrado");
+    }
+
+    @PutMapping("/update/{idAgendamento}")//update
+    public ResponseEntity<?> updateAgendamento(@PathVariable("idAgendamento") Long id, @RequestBody Agenda agenda){
+        Agenda agendaBanco = this.agendaService.findAgendaById(id);
+        if (agendaBanco != null){
+            if (agenda.getData() != null){
+                agendaBanco.setData(agenda.getData());
+            }
+            if (agenda.getObservacao() != null && !agenda.getObservacao().equals("")){
+                agendaBanco.setObservacao(agenda.getObservacao());
+            }
+            return ResponseEntity.ok(this.agendaService.updateAgendamentos(agendaBanco));
+        }
+        return ResponseEntity.ok("Agendamento não Atualizado");
     }
 }

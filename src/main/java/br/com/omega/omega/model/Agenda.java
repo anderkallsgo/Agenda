@@ -21,6 +21,7 @@ public class Agenda implements Serializable {
     private Date data;
     @ManyToOne//anotação de muitos para 1
     private Pessoa paciente;
+    @ManyToOne
     private Profissional psicologo;
 
     public Profissional getPsicologo() {

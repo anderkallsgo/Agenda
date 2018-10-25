@@ -17,4 +17,16 @@ public class AgendaService {
     public List<Agenda> listAgendametos() {
     return agendaRepository.findAll();
     }
+
+    public Agenda findAgendaById(Long id) {
+        return agendaRepository.findAgendaById(id);
+    }
+
+    public void removerAgendamento(Agenda agenda) {
+        agendaRepository.delete(agenda);
+    }
+
+    public Agenda updateAgendamentos(Agenda agendaBanco) {
+        return this.agendaRepository.save(agendaBanco);
+    }
 }

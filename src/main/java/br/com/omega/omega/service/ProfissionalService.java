@@ -29,4 +29,8 @@ public class ProfissionalService {
     public List<Profissional> listProfissinal() {
         return profissionalRepository.findAll();
     }
+
+    public Profissional updateProfissional(Profissional profissional) {
+        return profissionalRepository.save(profissional);
+    }
 }

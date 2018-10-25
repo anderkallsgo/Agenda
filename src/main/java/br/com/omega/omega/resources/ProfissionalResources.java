@@ -26,12 +26,17 @@ public class ProfissionalResources {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/save")
+    @PostMapping("/save")//create
     public ResponseEntity<Profissional> saveProfissional(@RequestBody Profissional profissional){
         return ResponseEntity.ok(this.profissionalService.saveProfissional(profissional));
     }
 
-    @DeleteMapping("/delete/{idProfissional}")
+    @GetMapping("/listProfissional")//read
+    public ResponseEntity<List<?>> getListProfissional(){
+        return new ResponseEntity<>(this.profissionalService.listProfissinal(),HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{idProfissional}")//delete
     public ResponseEntity<?> deleteProfissional(@PathVariable("idProfissional") Long id){
         Profissional profissional = this.profissionalService.findProfissionalById(id);
         if (profissional != null){
@@ -41,8 +46,14 @@ public class ProfissionalResources {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/listProfissional")
-    public ResponseEntity<List<?>> getListProfissional(){
-        return new ResponseEntity<>(this.profissionalService.listProfissinal(),HttpStatus.OK);
+    @PutMapping("update/{idProfissional}")//update
+    public ResponseEntity<?> updateProfissional(@PathVariable("idProfissional") Long id, @RequestBody Profissional profissionalAtual){
+        Profissional profissional = this.profissionalService.findProfissionalById(id);
+        if (profissional != null){
+            profissional.setNome(profissionalAtual.getNome());
+            this.profissionalService.updateProfissional(profissional);
+            return ResponseEntity.ok("Atualizado com sucesso");
+        }
+        return ResponseEntity.ok("Profissional não Encontrado");
     }
 }
