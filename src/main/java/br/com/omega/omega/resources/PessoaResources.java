@@ -11,47 +11,38 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/pessoa")
-public class PessoaResources {
+public class PessoaResources{
 
     @Autowired
     private PessoaService pessoaService;
-
-    @GetMapping("/teste")
-    public ResponseEntity<String> getOmegas(){
-        boolean deuCerto = true;
-        if (deuCerto){
-            return ResponseEntity.ok("Hello World");
-        }
-        return ResponseEntity.noContent().build();
-    }
 
     @PostMapping("/save")//create
     public ResponseEntity<Pessoa> savePessoa(@RequestBody Pessoa pessoa){
         return ResponseEntity.ok(this.pessoaService.savePessoa(pessoa));
     }
     @GetMapping("/list")//read
-    public ResponseEntity<List<?>> getPessoaOmega(){
+    public ResponseEntity<List<?>> getPessoas(){
         return new ResponseEntity<>(this.pessoaService.listPessoa(), HttpStatus.OK);
 
     }
 
     @DeleteMapping("/delete/{idPessoa}")//delete
-    public ResponseEntity<?> deletePessoaOmega(@PathVariable("idPessoa") Long id){
+    public ResponseEntity<?> deletePessoa(@PathVariable("idPessoa") Long id){
         Pessoa pessoa = this.pessoaService.findPessoaById(id);
         if (pessoa != null){
-            this.pessoaService.deletePessoaOmega(pessoa);
+            this.pessoaService.deletePessoa(pessoa);
             return ResponseEntity.ok("Deletado Com Sucesso");
         }
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/update/{idPessoa}")//update
-    public ResponseEntity<?> updatePessoaOmega(@RequestBody Pessoa pessoaAtual, @PathVariable("idPessoa") Long id){
+    public ResponseEntity<?> updatePessoa(@RequestBody Pessoa pessoaAtual, @PathVariable("idPessoa") Long id){
         Pessoa pessoa = this.pessoaService.findPessoaById(id);
         if (pessoa != null){
             pessoa.setNome(pessoaAtual.getNome());
             pessoa.setCpf(pessoaAtual.getCpf());
-            this.pessoaService.updatePessoaOmega(pessoa);
+            this.pessoaService.updatePessoa(pessoa);
             return ResponseEntity.ok("Atualizado com Sucesso");
         }
         return ResponseEntity.noContent().build();

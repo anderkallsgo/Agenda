@@ -30,11 +30,11 @@ public class PessoaService {
         return pessoaRepository.findPessoaById(id);
     }
 
-    public void deletePessoaOmega(Pessoa pessoa) {
+    public void deletePessoa(Pessoa pessoa) {
         this.pessoaRepository.delete(pessoa);
     }
 
-    public Pessoa updatePessoaOmega(Pessoa pessoa) {
+    public Pessoa updatePessoa(Pessoa pessoa) {
         return pessoaRepository.save(pessoa);
     }
 
