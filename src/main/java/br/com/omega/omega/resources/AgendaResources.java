@@ -79,4 +79,12 @@ public class AgendaResources {
         }
         return ResponseEntity.ok("Agendamento não Atualizado");
     }
+    @GetMapping("/listAgendamentosPaciente/{idPaciente}")
+    public ResponseEntity<List<?>> getAgendamentosPaciente(@PathVariable("idPaciente") Long id){
+        Pessoa paciente = this.pessoaService.findPessoaById(id);
+        if (paciente != null){
+            return new ResponseEntity<>(this.agendaService.listAgendametosByPaciente(paciente), HttpStatus.OK);
+        }
+        return null;
+    }
 }

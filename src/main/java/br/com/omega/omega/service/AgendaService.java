@@ -1,6 +1,7 @@
 package br.com.omega.omega.service;
 
 import br.com.omega.omega.model.Agenda;
+import br.com.omega.omega.model.Pessoa;
 import br.com.omega.omega.repository.AgendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,5 +29,9 @@ public class AgendaService {
 
     public Agenda updateAgendamentos(Agenda agendaBanco) {
         return this.agendaRepository.save(agendaBanco);
+    }
+
+    public List<Agenda> listAgendametosByPaciente(Pessoa paciente) {
+        return agendaRepository.findAgendaByPaciente(paciente);
     }
 }
