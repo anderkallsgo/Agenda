@@ -17,8 +17,10 @@ public class Agenda implements Serializable {
     private Long id;
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
-    @Column
+    @Column(name="data_atendimento")
     private Date data;
+    @Column(name = "data_cadastro")
+    private Date dataCadastro;
     @ManyToOne//anotação de muitos para 1
     private Pessoa paciente;
     @ManyToOne
@@ -66,4 +68,11 @@ public class Agenda implements Serializable {
         this.observacao = observacao;
     }
 
+    public Date getDataCadastro() {
+        return dataCadastro;
+    }
+
+    public void setDataCadastro(Date dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
 }
