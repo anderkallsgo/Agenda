@@ -19,7 +19,7 @@ public class Pessoa implements Serializable {
     private String rg;
     private String telefone;
     private String celular;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Endereco endereco;
     private String email;
 
