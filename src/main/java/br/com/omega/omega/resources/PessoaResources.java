@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/pessoa")
+@CrossOrigin
 public class PessoaResources {
 
     @Autowired

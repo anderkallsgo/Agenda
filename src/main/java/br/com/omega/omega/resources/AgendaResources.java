@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/agenda")
-
+@CrossOrigin
 public class AgendaResources {
 
     @Autowired

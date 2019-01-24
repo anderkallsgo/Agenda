@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/profissional")
-
+@CrossOrigin
 public class ProfissionalResources {
 
     @Autowired
